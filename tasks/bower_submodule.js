@@ -47,8 +47,8 @@ module.exports = function(grunt) {
                 for(var p in config.dependencies){
                     var httpLink = config.dependencies[p].indexOf('http') > -1 ? config.dependencies[p] : false,
                         info = config.dependencies[p].split('#'),
-                        packageName = info[1] ? info[0] : '',
-                        version = httpLink || (info[1] ? '#' + info[1] : '*');
+                        packageName = info[1] ? info[0] : (httpLink ? info[0] : ''),
+                        version = info[1] ? ('#' + info[1]) : (httpLink ? '': '*');
                     bower_submodule.dependencies[p] = packageName + version;
                     grunt.log.writeln('Detected ' + p + ' => ' + bower_submodule.dependencies[p]);
                 }
